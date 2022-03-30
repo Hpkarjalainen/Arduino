@@ -1,4 +1,4 @@
-static int led_mappings[8][7]={
+const int number_mappings[8][7]={
     {1,0,0,0,0,0,0}, // 0
     {0,1,0,0,0,0,0}, // 1
     {0,0,1,0,0,0,0}, // 2
@@ -9,6 +9,36 @@ static int led_mappings[8][7]={
     {0,0,0,0,0,0,0}, // 7
 };
 
+void number_generator() {
+    int number = random(0,8);
+    int socket_low = 0;
+
+    int socket_status;
+    for(socket_status=0; socket_status<7; socket_status++)
+    {   
+        int input_number = socket_status+2;
+        if(number_mappings[number][socket_status]==socket_low) digitalWrite(input_number, LOW);
+        else digitalWrite(input_number, HIGH);
+    }
+}
+
+void shuffle_and_pick_number() {
+    int times;
+    for(times=0; times<6; times++) {
+        int shuffle_times;
+        for(shuffle_times=0; shuffle_times<6; shuffle_times++) {
+            number_generator();
+            delay(200);
+        }
+        number_generator();
+        delay(2000);
+    }
+}
+
+void loop() {
+    shuffle_and_pick_number();
+};
+
 void setup() {
     pinMode(2, OUTPUT);
     pinMode(3, OUTPUT);
@@ -17,37 +47,4 @@ void setup() {
     pinMode(6, OUTPUT);
     pinMode(7, OUTPUT);
     pinMode(8, OUTPUT);
-    run();
-}
-
-void run() {
-    int i;
-    for(i=0; i<6; i++) {
-        shuffle();
-    }
-};
-
-void shuffle() {
-    int a;
-    for(a=0; a<6; a++) {
-        int i;
-        for(i=0; i<6; i++) {
-            led_number_generator();
-            delay(200);
-        }
-        led_number_generator();
-        delay(2000);
-    }
-}
-
-void led_number_generator() {
-    int led_number = random(0,8);
-        
-    int i;
-    for(i=0; i<7; i++)
-    {   
-        int input_number = i+2;
-        if(led_mappings[led_number][i]==0) digitalWrite(input_number, LOW);
-        else digitalWrite(input_number, HIGH);
-    }
 }
