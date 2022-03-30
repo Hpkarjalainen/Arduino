@@ -17,8 +17,11 @@ void number_generator() {
     for(socket_status=0; socket_status<7; socket_status++)
     {   
         int input_number = socket_status+2;
-        if(number_mappings[number][socket_status]==socket_low) digitalWrite(input_number, LOW);
-        else digitalWrite(input_number, HIGH);
+        if(number_mappings[number][socket_status]==socket_low) {
+            digitalWrite(input_number, LOW);
+        } else {
+            digitalWrite(input_number, HIGH);
+        }
     }
 }
 
