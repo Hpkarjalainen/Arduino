@@ -1,0 +1,42 @@
+// Efekti
+void setup()   
+{
+ pinMode(2, OUTPUT);
+ pinMode(3, OUTPUT);
+ pinMode(4, OUTPUT);
+ pinMode(5, OUTPUT);
+ pinMode(6, OUTPUT);
+ pinMode(7, OUTPUT);
+ pinMode(8, OUTPUT);
+}
+void loop()
+{
+ int a;
+ for (a=0; a<6; a++)
+ {
+ efekti(a);
+ delay(50); 
+ }
+}
+void efekti(int luku)
+{
+  int ohjaus[8][7]=          //efektitaulukko
+  {
+  {1,0,0,0,0,0,0}, // 0
+  {0,1,0,0,0,0,0}, // 1
+  {0,0,1,0,0,0,0}, // 2
+  {0,0,0,1,0,0,0}, // 3
+  {0,0,0,0,1,0,0}, // 4
+  {0,0,0,0,0,1,0}, // 5
+  {0,0,0,0,0,0,1}, // 6
+  {0,0,0,0,0,0,0}, // 7
+  } ;
+  
+ int j;
+ for(j=0; j<7;j++)
+ {
+ if(ohjaus[luku][j]==0) digitalWrite(j+2, LOW);
+ else digitalWrite(j+2, HIGH);
+ }
+ return;
+}
