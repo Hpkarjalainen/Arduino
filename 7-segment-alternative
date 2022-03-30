@@ -1,0 +1,53 @@
+static int led_mappings[8][7]={
+    {1,0,0,0,0,0,0}, // 0
+    {0,1,0,0,0,0,0}, // 1
+    {0,0,1,0,0,0,0}, // 2
+    {0,0,0,1,0,0,0}, // 3
+    {0,0,0,0,1,0,0}, // 4
+    {0,0,0,0,0,1,0}, // 5
+    {0,0,0,0,0,0,1}, // 6
+    {0,0,0,0,0,0,0}, // 7
+};
+
+void setup() {
+    pinMode(2, OUTPUT);
+    pinMode(3, OUTPUT);
+    pinMode(4, OUTPUT);
+    pinMode(5, OUTPUT);
+    pinMode(6, OUTPUT);
+    pinMode(7, OUTPUT);
+    pinMode(8, OUTPUT);
+    run();
+}
+
+void run() {
+    int i;
+    for(i=0; i<6; i++) {
+        shuffle();
+    }
+};
+
+void shuffle() {
+    int a;
+    for(a=0; a<6; a++) {
+        int i;
+        for(i=0; i<6; i++) {
+            led_number_generator();
+            delay(200);
+        }
+        led_number_generator();
+        delay(2000);
+    }
+}
+
+void led_number_generator() {
+    int led_number = random(0,8);
+        
+    int i;
+    for(i=0; i<7; i++)
+    {   
+        int input_number = i+2;
+        if(led_mappings[led_number][i]==0) digitalWrite(input_number, LOW);
+        else digitalWrite(input_number, HIGH);
+    }
+}
